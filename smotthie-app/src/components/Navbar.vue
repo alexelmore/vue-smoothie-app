@@ -18,7 +18,9 @@
 <script>
 export default {
   name: "Navbar",
-  data() {},
+  data() {
+    return {};
+  },
 };
 </script>
 
