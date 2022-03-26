@@ -33,9 +33,18 @@ export default {
   methods: {
     // Method to delete a smoothie from our smoothies data property
     deleteSmoothie(id) {
-      this.smoothies = this.smoothies.filter((smoothie) => {
-        return smoothie.id !== id;
-      });
+      // delete doc from firestore
+      db.collection("smoothies")
+        .doc(id)
+        .delete()
+        .then(() => {
+          this.smoothies = this.smoothies.filter((smoothie) => {
+            return smoothie.id != id;
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   created() {
