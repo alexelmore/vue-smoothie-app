@@ -22,33 +22,33 @@
 </template>
 
 <script>
+import db from "@/firebase/init";
 export default {
   name: "Index",
   data() {
     return {
-      smoothies: [
-        {
-          title: "Chocolate",
-          slug: "chocolate-brew",
-          ingredients: ["chocolate", "milk", "coffee"],
-          id: 1,
-        },
-        {
-          title: "Lemmon",
-          slug: "lemmon-brew",
-          ingredients: ["lemons", "ice", "syrup"],
-          id: 2,
-        },
-      ],
+      smoothies: [],
     };
   },
   methods: {
-    // Method to delete a smoothie
+    // Method to delete a smoothie from our smoothies data property
     deleteSmoothie(id) {
       this.smoothies = this.smoothies.filter((smoothie) => {
         return smoothie.id !== id;
       });
     },
+  },
+  created() {
+    // Send a request to our Firebase DB to fetch the data
+    db.collection("smoothies")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          let smoothie = doc.data();
+          smoothie.id = doc.id;
+          this.smoothies.push(smoothie);
+        });
+      });
   },
 };
 </script>
