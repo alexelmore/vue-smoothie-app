@@ -7,16 +7,23 @@
         >
         <h2 class="indigo-text">
           {{ smoothie.title }}
-          <ul class="ingredients">
-            <li
-              v-for="(ingredient, index) in smoothie.ingredients"
-              :key="index"
-            >
-              <span class="chip">{{ ingredient }}</span>
-            </li>
-          </ul>
         </h2>
+        <ul class="ingredients">
+          <li v-for="(ingredient, index) in smoothie.ingredients" :key="index">
+            <span class="chip">{{ ingredient }}</span>
+          </li>
+        </ul>
       </div>
+      <span class="btn-floating btn-large halfway-fab pink">
+        <router-link
+          :to="{
+            name: 'editSmoothie',
+            params: { smoothie_slug: smoothie.slug },
+          }"
+        >
+          <i class="material-icons edit">edit</i>
+        </router-link>
+      </span>
     </div>
   </div>
 </template>
